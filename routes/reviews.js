@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/new', function(req,res){
-  res.render('movies/new')
+  res.render('movies/reviews/new')
 })
 
 router.post('/',function(req,res){
@@ -17,11 +17,11 @@ router.post('/',function(req,res){
 })
 
 router.get('/:id', function(req,res){
-  res.render('movies/show')
+  res.render('movies/reviews/show')
 })
 
 router.get('/:id/edit', function(req,res){
-  res.render('movies/edit')
+  res.render('movies/reviews/edit')
 })
 
 router.post('/:id', function(req,res){
