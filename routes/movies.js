@@ -5,7 +5,9 @@ var knex = require('../db/knex.js')
 /* Movies Routes Go Here. */
 
 router.get('/', function (req, res, next) {
-  res.render('movies/index');
+  runQuery('select * from movies', function(results){
+    res.render('movies/index', {results:results.rows});
+  })
 })
 
 router.get('/new', function(req,res){
@@ -13,23 +15,35 @@ router.get('/new', function(req,res){
 })
 
 router.post('/',function(req,res){
-  res.redirect('/')
+  runQuery("insert into movies values(default, 'value', 'value')", function(resuts){
+    res.redirect('/')
+  })
 })
 
 router.get('/:id', function(req,res){
-  res.render('movies/show')
+  var id = req.params.id
+  runQuery("select * from movies where id="+id, function(results){
+    res.render('movies/show',{movie:results.rows[0]})
+  })
 })
 
 router.get('/:id/edit', function(req,res){
-  res.render('movies/edit')
+  var id = req.params.id
+    runQuery("select * from movies where id="+id, function(results){
+      res.render('movies/edit',{movie:results.rows[0]})
+    })
 })
 
 router.post('/:id', function(req,res){
-  res.redirect('/')
+  runQuery("update movies set value='"+value+"' where id="+id, function(results){
+    res.redirect('/')
+  })
 })
 
 router.post('/:id/delete', function(req,res){
-  res.redirect('/')
+  runQuery("delete from movies where id ="+id, function(results){
+    res.redirect('/')
+  })
 })
 
 module.exports = router;
